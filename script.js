@@ -38,7 +38,7 @@ function getStringStorageItem(cname, cdefault) {
 // Target elements
 
 const outputSpeechStatus = document.querySelector('label#outputSpeechStatus');
-// const outputConfidence = document.querySelector('label#outputConfidence');
+const outputConfidence = document.querySelector('label#outputConfidence');
 const outputStatus = document.querySelector('label#outputStatus');
 const statusBar = document.querySelector('p#statusBar');
 const startButtonInfo = document.querySelector('p#startButtonInfo');
@@ -3250,7 +3250,7 @@ async function playTranscriptAudio(elem, audioURL, stop = false) {
             hideTranscriptHover(activeAudioElement.parent().parent());
             element.addClass('active-audio');
             element.children('i')[0].setAttribute('class', 'stop circle outline icon');
-            playAudio(audioURL, stop, true);
+            // playAudio(audioURL, stop, true);
         } else {
             speechPlaying = false;
             audio.load();
@@ -3325,9 +3325,9 @@ async function onPlaybackError(err, audioURL) {
         const errorMsg = `Failed to play audio, trying again. Current attempt: ${timeoutTimes}`;
         console.error(errorMsg);
         updateOutputStatus(errorMsg);
-        setTimeout(() => {
-            playAudio(audioURL, false, false);
-        }, 500);
+        // setTimeout(() => {
+            // playAudio(audioURL, false, false);
+        // }, 500);
     }
 }
 
@@ -3551,6 +3551,8 @@ async function playTTS(speech, useTts, interimAddition = false, padSpacing = tru
 
         if (useTts || !noSpeech || noSpeechIntentional) {
             console.info(`Speech: ${speechText}`);
+			outputConfidence.textContent = `${speechText}`;
+
             if (vtsState.socketOutputEnabled) {
                 let socketInputLang = findMatchingOutputLang(inputLang);
                 let socketOutputLang = outputLang;
@@ -3606,7 +3608,7 @@ async function playTTS(speech, useTts, interimAddition = false, padSpacing = tru
             } else {
                 appendTranscript(speechText, untranslatedSpeechText, inputLang, outputLang, audioURL);
             }
-            playAudio(audioURL, false, false);
+            // playAudio(audioURL, false, false);
         }
     } catch (err) {
         // ~console.info("error playTTS");
@@ -3774,6 +3776,7 @@ async function updateOutputStatus(text) {
     clearTimeout(outputStatusTimeout);
     outputStatusTimeout = setTimeout(() => {
         outputStatus.textContent = 'Status: —';
+		outputConfidence.textContent = '';
     }, 3000);
 }
 
@@ -3875,14 +3878,14 @@ function testSpeech() {
                     // lastInterimTranscript = speechResult;
                     playInterimTTS(speechResult);
                 }
-                outputSpeechStatus.textContent = `Speech received: ${speechResult}`;
+                outputSpeechStatus.textContent = `${speechResult}`;
                 // outputConfidence.textContent = `Confidence: ${confidenceResult}`;
             }
         } else if (buttonState === 1) {
             let speechResult = event.results[event.results.length - 1][0].transcript;
             // let confidenceResult = event.results[0][0].confidence;
             if (speechResult === '') {
-                speechResult = '—';
+                speechResult = ' ';
                 // confidenceResult = '—';
             } else {
                 playBufferedTTS(speechResult, false, true);
