@@ -3776,7 +3776,7 @@ async function updateOutputStatus(text) {
     clearTimeout(outputStatusTimeout);
     outputStatusTimeout = setTimeout(() => {
         outputStatus.textContent = 'Status: —';
-		outputConfidence.textContent = '';
+		outputConfidence.textContent = '—';
     }, 3000);
 }
 
