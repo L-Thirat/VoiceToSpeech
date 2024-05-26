@@ -3876,7 +3876,7 @@ function testSpeech() {
                     playInterimTTS('');
                 } else {
                     // lastInterimTranscript = speechResult;
-                    playInterimTTS(speechResult);<<
+                    playInterimTTS(speechResult);
                 }
                 outputSpeechStatus.textContent = `${speechResult}`;
                 // outputConfidence.textContent = `Confidence: ${confidenceResult}`;
