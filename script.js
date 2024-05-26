@@ -2013,7 +2013,7 @@ function clearTranscript() {
     $clearTranscriptNag.nag({
         storageMethod: null,
         persist: true,
-        displayTime: 2000
+        displayTime: 5000
     }).nag('show');
 
     while (transcript.firstChild) {
@@ -3876,7 +3876,7 @@ function testSpeech() {
                     playInterimTTS('');
                 } else {
                     // lastInterimTranscript = speechResult;
-                    playInterimTTS(speechResult);
+                    playInterimTTS(speechResult);<<
                 }
                 outputSpeechStatus.textContent = `${speechResult}`;
                 // outputConfidence.textContent = `Confidence: ${confidenceResult}`;
@@ -3913,7 +3913,7 @@ function testSpeech() {
         console.info(`Error: ${event.error}`);
         updateOutputStatus('recognition error');
         if (buttonState === 1) {
-            outputSpeechStatus.textContent = `Error occurred in recognition: ${event.error}`;
+            outputSpeechStatus.textContent = `-`;
             if (event.error === 'audio-capture') {
                 startButton.click();
             } else {
